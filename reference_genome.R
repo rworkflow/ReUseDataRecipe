@@ -11,7 +11,7 @@ fa=`basename $fasta`
 
 if [[ $fa =~ \\.gz$ ]]
 then
-  bgzip -d $fa
+  gzip -d $fa
   fa=`basename $fa .gz`
 fi
 
@@ -102,3 +102,25 @@ bplapply(1,
                        "fai", "dict", "bwa_index", "bwa_v0.7.17-r1188"),
          docker = FALSE,
          BPPARAM = BPPARAM)
+
+##
+## GRCm39
+reference_genome$fasta <- "http://ftp.ensembl.org/pub/release-104/fasta/mus_musculus/dna/Mus_musculus.GRCm39.dna.toplevel.fa.gz"
+res <- runCWLDataBatch(reference_genome, outdir = "/projects/rpci/shared/references/GRCm39",
+                       showLog = TRUE,
+                       prefix = "Mus_musculus.GRCm39.dna.toplevel",
+                       version = "release-104",
+                       notes = paste("us_musculus", "GRCm39", "toplevel", "release-104",
+                                     "fai", "dict", "bwa_index", "bwa_v0.7.17-r1188"),
+                       docker = FALSE,
+                       BPPARAM = BPPARAM)
+
+library(BiocParallel)
+BPPARAM <- BatchtoolsParam(workers = 1,
+                           cluster = "slurm",
+                           template = "~/slurm_rpci.tmpl",
+                           resources = list(ncpus = 2,
+                                            jobname = "index",                         
+                                            walltime = 60*60*4,
+                                            memory = 16000),
+                           log = TRUE, logdir = ".", progressbar = TRUE)
