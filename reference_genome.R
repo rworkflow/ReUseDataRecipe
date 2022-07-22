@@ -17,13 +17,16 @@ fi
 
 fn=`basename $fa .fa`
 fn=`basename $fn .fasta`
+mv $fa $fn.fa
+fa=$fn.fa
+
 samtools faidx $fa
 picard CreateSequenceDictionary R=$fa O=$fn.dict
 bwa index $fa
 "
 
 p1 <- InputParam(id = "fasta", type = list("string", "File"))
-o1 <- OutputParam(id = "fa", type = "File", glob = "$(inputs.fasta.split('/').slice(-1)[0].replace('.gz', ''))",
+o1 <- OutputParam(id = "fa", type = "File", glob = "*.fa",
                   secondaryFile = list(".fai",
                                        "^.dict",
                                        ".amb",
