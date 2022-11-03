@@ -22,7 +22,7 @@ fa=$fn.fa
 
 samtools faidx $fa
 picard CreateSequenceDictionary R=$fa O=$fn.dict
-bwa index $fa
+##bwa index $fa
 "
 
 p1 <- InputParam(id = "fasta", type = list("string", "File"))
@@ -42,7 +42,7 @@ req2 <- requireDocker(File = dockerfile, ImageId = "refindex")
 req3 <- requireNetwork()
 req4 <- requireJS()
 reference_genome <- cwlProcess(cwlVersion = "v1.2",
-                               baseCommand = ShellScript(),
+                               baseCommand = c("bash", "script.sh"),
                                requirements = list(req1, req2, req3, req4),
                                inputs = InputParamList(p1),
                                outputs = OutputParamList(o1))
