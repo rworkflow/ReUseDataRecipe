@@ -13,7 +13,7 @@ rcp_gencode_annot <- recipeMake(shscript = script,
                                 )  
 
 rcp_gencode_annot <- addMeta(cwl = rcp_gencode_annot,
-                             label = "genome liftover",
+                             label = "gencode annotation",
                              doc = "Download and unzip annotation files from gencode",
                              inputLabels = c("species", "version"),
                              inputDocs = c("'human' or 'mouse'",
