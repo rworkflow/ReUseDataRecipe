@@ -28,10 +28,12 @@ rcp_liftover <- addMeta(cwl = rcp_liftover,
                                       "target genome build (case sensitive, must match source URL)"),
                         outputLabels = c("liftover"),
                         outputDocs = c("the unzipped liftover file: `${from}_to_${to}.chain`"),
-                        extensions = list(url = "<https://ftp.ensembl.org/pub/assembly_mapping/>",
-                                          date = Sys.Date(),
-                                          example = paste("rcp <- recipeLoad('ensembl_liftover')",
-                                                           "rcp$species <- 'human'",
-                                                           "rcp$from <- 'GRCh37'",
-                                                           "rcp$to <- 'GRCh38'",
-                                                           "getData(rcp, outdir = 'data/folder', prefix = 'ensemble_grch37_38', notes = c('grch37', 'grch38')", sep="\n")))
+                        extensions = list(`$namespaces` = list(
+                                              url = "<https://ftp.ensembl.org/pub/assembly_mapping/>",
+                                              date = Sys.Date(),
+                                              example = paste("rcp <- recipeLoad('ensembl_liftover')",
+                                                              "rcp$species <- 'human'",
+                                                              "rcp$from <- 'GRCh37'",
+                                                              "rcp$to <- 'GRCh38'",
+                                                              "getData(rcp, outdir = 'data/folder', prefix = 'ensemble_grch37_38', notes = c('grch37', 'grch38')", sep="\n")))
+                        )
