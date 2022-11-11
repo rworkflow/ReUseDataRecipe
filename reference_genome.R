@@ -22,7 +22,7 @@ fa=$fn.fa
 
 samtools faidx $fa
 picard CreateSequenceDictionary R=$fa O=$fn.dict
-##bwa index $fa
+bwa index $fa
 "
 
 p1 <- InputParam(id = "fasta", type = list("string", "File"))
