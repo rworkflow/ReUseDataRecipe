@@ -30,11 +30,11 @@ rcp <- addMeta(cwl = rcp,
                                     "e.g., 'M31' (species='mouse'), '42' (species='human') ")),
                outputLabels = c("transcripts"),
                outputDocs = c("the samtool indexed annotation files: `*transcripts.fa`, `*transcripts.fa.fai`"),
-               extensions = list(
-                   url = "http://ftp.ebi.ac.uk/pub/databases/gencode/",
-                   date = Sys.Date(),
-                   example = paste("rcp <- recipeLoad('gencode_transcripts')",
-                                   "rcp$species <- 'mouse'",
-                                   "rcp$version <- 'M31'",
-                                   "getData(rcp, outdir = 'data/folder', prefix = 'gencode_transcripts_mouse_M31', notes = c('gencode', 'transcripts', 'mouse', 'M31')", sep="\n"))
+               extensions = list(author = "rworkflow team", 
+                                 url = "http://ftp.ebi.ac.uk/pub/databases/gencode/",
+                                 date = Sys.Date(),
+                                 example = paste("rcp <- recipeLoad('gencode_transcripts')",
+                                                 "rcp$species <- 'mouse'",
+                                                 "rcp$version <- 'M31'",
+                                                 "getData(rcp, outdir = 'data/folder', prefix = 'gencode_transcripts_mouse_M31', notes = c('gencode', 'transcripts', 'mouse', 'M31')", sep="\n"))
                )
