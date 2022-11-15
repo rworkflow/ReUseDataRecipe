@@ -17,7 +17,7 @@ rcp <- addMeta(rcp,
                outputDocs = c("The `1000G_omni2.5.hg38.vcf.gz` and '.tbi' index files"),
                extensions = list(author = "rworkflow team",
                                  date = Sys.Date(),
-                                 url = "https://storage.googleapis.com/gcp-public-data--broad-references/hg38/v0/1000G.phase3.integrated.sites_only.no_MATCHED_REV.hg38.vcf", 
+                                 url = "https://storage.googleapis.com/gcp-public-data--broad-references/hg38/v0/1000G_omni2.5.hg38.vcf.gz", 
                                  example = paste("rcp <- recipeLoad('gcp_broad_gatk_hg38_1000G_omni2.5",
                                                  "getData(rcp, outdir = 'data/folder', prefix = 'gcp_broad_hg38_v0_1000G_omni2.5', notes = c('gcp', 'broad', 'reference', 'hg38', 'v0', '1000G', 'omni2.5')",
                                                  sep="\n"))
