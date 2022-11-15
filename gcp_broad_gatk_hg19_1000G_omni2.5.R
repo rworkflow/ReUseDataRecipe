@@ -11,7 +11,7 @@ rcp <- recipeMake(shscript = script,
 ## outputGlob = "$(inputs.rpath.split('/').slice(-1)[0])*")
 
 rcp <- addMeta(rcp,
-               label = "gcp_broad_gatk_b37_1000G_omni2.5",
+               label = "GCP_broad_gatk_b37_1000G_omni2.5",
                doc = "the 1000G_omni2.5 vcf.gz (and index) files from google bucket for broad reference data GATK hg19.",
                outputLabels = c("vcf"),
                outputDocs = c("The `1000G_omni2.5.b37.vcf.gz` and '.tbi' index files"),
