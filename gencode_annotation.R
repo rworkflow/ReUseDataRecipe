@@ -7,14 +7,14 @@ wget http://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_$species/release_$versio
 gzip -d gencode.v$version.annotation.gtf.gz
 "
 
-rcp <- recipeMake(shscript = script,
+gencode_annotation <- recipeMake(shscript = script,
                   paramID = c("species", "version"),
                   paramType = c("string", "string"),
                   outputID = "annotation", 
                   outputGlob = "gencode.v*.annotation.gtf"
                   )  
 
-rcp <- addMeta(cwl = rcp,
+gencode_annotation <- addMeta(cwl = gencode_annotation,
                label = "gencode annotation",
                doc = "Download and unzip annotation files from gencode",
                inputLabels = c("species", "version"),

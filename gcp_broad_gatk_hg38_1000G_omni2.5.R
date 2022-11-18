@@ -5,12 +5,12 @@ path=https://storage.googleapis.com/gcp-public-data--broad-references/hg38/v0
 wget $path/1000G_omni2.5.hg38.vcf.gz
 wget $path/1000G_omni2.5.hg38.vcf.gz.tbi        
 "
-rcp <- recipeMake(shscript = script,
+gcp_broad_gatk_hg38_1000G_omni2.5 <- recipeMake(shscript = script,
                   outputID = "vcf",
                   outputGlob = "1000G_omni2.5.hg38.vcf.gz*")
 ## outputGlob = "$(inputs.rpath.split('/').slice(-1)[0])*")
 
-rcp <- addMeta(rcp,
+gcp_broad_gatk_hg38_1000G_omni2.5 <- addMeta(gcp_broad_gatk_hg38_1000G_omni2.5,
                label = "GCP_broad_gatk_hg38_1000G_omni2.5",
                doc = "the 1000G_omni2.5 vcf.gz (and index) files from google bucket for broad reference data GATK hg38.",
                outputLabels = c("vcf"),

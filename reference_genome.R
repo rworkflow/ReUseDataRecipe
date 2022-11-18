@@ -43,13 +43,13 @@ req2 <- requireDocker(File = dockerfile, ImageId = "refindex")
 
 req3 <- requireNetwork()
 req4 <- requireJS()
-rcp <- cwlProcess(cwlVersion = "v1.2",
+reference_genome <- cwlProcess(cwlVersion = "v1.2",
                   baseCommand = c("bash", "script.sh"),
                   requirements = list(req1, req2, req3, req4),
                   inputs = InputParamList(p1),
                   outputs = OutputParamList(o1))
 
-rcp <- addMeta(rcp,
+reference_genome <- addMeta(reference_genome,
                label = "reference genome",
                doc = "Download (if not previously exist as a local file), rename (as *.fa), and index the reference genome with samtools and bwa",
                inputLabels = c("reference genome"),

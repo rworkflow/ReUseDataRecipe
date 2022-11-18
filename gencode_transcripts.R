@@ -14,13 +14,13 @@ gzip -d gencode.v$version.$trans.fa.gz
 samtools faidx gencode.v$version.$trans.fa
 "
 
-rcp <- recipeMake(script, 
+gencode_transcripts <- recipeMake(script, 
                   paramID = c("species", "version"),
                   paramType = c("string", "string"),
                   outputID = "transcripts",
                   outputGlob = "*transcripts.fa*")
 
-rcp <- addMeta(cwl = rcp,
+gencode_transcripts <- addMeta(cwl = gencode_transcripts,
                label = "gencode transcripts",
                doc = "Download, unzip, and index transcripts files from gencode",
                inputLabels = c("species", "version"),

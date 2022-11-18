@@ -14,13 +14,13 @@ fi
 wget https://ftp.ensembl.org/pub/assembly_mapping/$species/${from}_to_${to}.chain.gz
 gzip -d ${from}_to_${to}.chain.gz"
 
-rcp <- recipeMake(shscript = script,
+ensembl_liftover <- recipeMake(shscript = script,
                   paramID = c("species", "from", "to"), 
                   paramType = c("string", "string", "string"), 
                   outputID = "liftover", 
                   outputGlob = "*.chain") 
 
-rcp <- addMeta(cwl = rcp,
+ensembl_liftover <- addMeta(cwl = ensembl_liftover,
                label = "genome liftover",
                doc = "Download and unzip genome liftover file from Ensembl",
                inputLabels = c("species", "from", "to"),
