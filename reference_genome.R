@@ -38,14 +38,15 @@ o1 <- OutputParam(id = "fa", type = "File", glob = "*.fa",
                                        ".sa"))
 
 req1 <- requireShellScript(script)
-dockerfile <- CondaTool(tools = c("samtools", "picard", "bwa"))
-req2 <- requireDocker(File = dockerfile, ImageId = "refindex")
+requireTools <- c("bwa", "samtools", "picard")
+req2 <- requireSoftware(packages = lapply(requireTools, condaPackage))
 
 req3 <- requireNetwork()
 req4 <- requireJS()
 reference_genome <- cwlProcess(cwlVersion = "v1.2",
                   baseCommand = c("bash", "script.sh"),
-                  requirements = list(req1, req2, req3, req4),
+                  requirements = list(req1, req3, req4),
+                  hints = list(req2),
                   inputs = InputParamList(p1),
                   outputs = OutputParamList(o1))
 
@@ -61,5 +62,5 @@ reference_genome <- addMeta(reference_genome,
                                  date = Sys.Date(),
                                  example = paste("rcp <- recipeLoad(reference_genome)",
                                                  "rcp$fasta = 'http://ftp.ensembl.org/pub/release-104/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.MT.fa.gz'",
-                                                 "getData(rcp, outdir = 'data/folder', prefix = 'Homo_sapiens.GRCh38.dna.chromosoem.MT', notes = c('homo sapiens', 'grch38', 'ensembl')", sep = "\n"))
+                                                 "getData(rcp, outdir = 'data/folder', prefix = 'Homo_sapiens.GRCh38.dna.chromosoem.MT', notes = c('homo sapiens', 'grch38', 'ensembl'), conda = TRUE, docker = FALSE)", sep = "\n"))
                )
