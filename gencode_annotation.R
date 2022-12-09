@@ -14,21 +14,31 @@ gencode_annotation <- recipeMake(shscript = script,
                   outputGlob = "gencode.v*.annotation.gtf"
                   )  
 
-gencode_annotation <- addMeta(cwl = gencode_annotation,
-               label = "gencode annotation",
-               doc = "Download and unzip annotation files from gencode",
-               inputLabels = c("species", "version"),
-               inputDocs = c("'human' or 'mouse'",
-                             paste0("Character string. Case sensitive. ",
-                                    "must match available versions for each species under source URL link. ",
-                                    "e.g., 'M31' (species='mouse'), '42' (species='human') ")),
-               outputLabels = c("annotation"),
-               outputDocs = c("the unzipped annotation file: `gencode.v$version.annotation.gtf`"),
-               extensions = list(author = "rworkflow team", 
-                                 url = "http://ftp.ebi.ac.uk/pub/databases/gencode/",
-                                 date = Sys.Date(),
-                                 example = paste("rcp <- recipeLoad('gencode_annotation')",
-                                                 "rcp$species <- 'human'",
-                                                 "rcp$version <- '42'",
-                                                 "getData(rcp, outdir = 'data/folder', prefix = 'gencode_annotation_human_42', notes = c('gencode', 'annotation', 'human', '42')", sep="\n"))
-               )
+gencode_annotation <- addMeta(
+    cwl = gencode_annotation,
+    label = "gencode annotation",
+    doc = "Download and unzip annotation files from gencode",
+    inputLabels = c("species", "version"),
+    inputDocs = c("'human' or 'mouse'",
+                  paste0("Character string. Case sensitive. ",
+                         "must match available versions for each species under source URL link. ",
+                         "e.g., 'M31' (species='mouse'), '42' (species='human') ")),
+    outputLabels = c("annotation"),
+    outputDocs = c("the unzipped annotation file: `gencode.v$version.annotation.gtf`"),
+    extensions = list(
+        author = "rworkflow team", 
+        url = "http://ftp.ebi.ac.uk/pub/databases/gencode/",
+        date = Sys.Date(),
+        example = paste(
+            "## Get data from evaluting recipe",
+            "rcp <- recipeLoad('gencode_annotation')",
+            "rcp$species <- 'human'",
+            "rcp$version <- '42'",
+            "getData(rcp, outdir = 'data/folder', prefix = 'gencode_annotation_human_42', notes = c('gencode', 'annotation', 'human', '42')",
+            "",
+            "## Get data from Google bucket directly",
+            "dataUpdate('data/folder', cloud=TRUE)",
+            "dh <- dataSearch(c('gencode', 'annotation'))", 
+            "getCloudData(dh[1], outdir = 'data/folder')",
+            sep="\n"))
+)
