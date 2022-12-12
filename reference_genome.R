@@ -50,17 +50,22 @@ reference_genome <- cwlProcess(cwlVersion = "v1.2",
                   inputs = InputParamList(p1),
                   outputs = OutputParamList(o1))
 
-reference_genome <- addMeta(reference_genome,
-               label = "reference genome",
-               doc = "Download (if not previously exist as a local file), rename (as *.fa), and index the reference genome with samtools and bwa",
-               inputLabels = c("reference genome"),
-               inputDocs = c("Can be a file path (if locally available) or a url as indicated in 'Data source'"),
-               outputLabels = c("indexed reference genome"),
-               outputDocs = c("*.fa, *.fai files, and some secondary files"),
-               extensions = list(author = "rworkflow team",
-                                 url = c("http://ftp.ensembl.org/pub/release-104/fasta/homo_sapiens/dna/", "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/GRCh38_rcp", "http://ftp.ensembl.org/pub/release-104/fasta/mus_musculus/dna/"),
-                                 date = Sys.Date(),
-                                 example = paste("rcp <- recipeLoad(reference_genome)",
-                                                 "rcp$fasta = 'http://ftp.ensembl.org/pub/release-104/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.MT.fa.gz'",
-                                                 "getData(rcp, outdir = 'data/folder', prefix = 'Homo_sapiens.GRCh38.dna.chromosoem.MT', notes = c('homo sapiens', 'grch38', 'ensembl'), conda = TRUE, docker = FALSE)", sep = "\n"))
-               )
+reference_genome <- addMeta(
+    reference_genome,
+    label = "reference genome",
+    doc = "Download (if not previously exist as a local file), rename (as *.fa), and index the reference genome with samtools and bwa",
+    inputLabels = c("reference genome"),
+    inputDocs = c("Can be a file path (if locally available) or a url as indicated in 'Data source'"),
+    outputLabels = c("indexed reference genome"),
+    outputDocs = c("*.fa, *.fai files, and some secondary files"),
+    extensions = list(
+        author = "rworkflow team",
+        url = c("http://ftp.ensembl.org/pub/release-104/fasta/homo_sapiens/dna/",
+                "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/GRCh38_rcp",
+                "http://ftp.ensembl.org/pub/release-104/fasta/mus_musculus/dna/"),
+        date = Sys.Date(),
+        example = paste(
+            "rcp <- recipeLoad(reference_genome)",
+            "rcp$fasta = 'http://ftp.ensembl.org/pub/release-104/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.MT.fa.gz'",
+            "getData(rcp, outdir = 'data/folder', notes = c('homo sapiens', 'grch38', 'ensembl'), conda = TRUE, docker = FALSE)", sep = "\n"))
+)

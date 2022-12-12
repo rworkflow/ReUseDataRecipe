@@ -41,7 +41,7 @@ ensembl_liftover <- addMeta(
             "rcp$species <- 'human'",
             "rcp$from <- 'GRCh37'",
             "rcp$to <- 'GRCh38'",
-            "getData(rcp, outdir = 'data/folder', prefix = 'ensemble_grch37_38', notes = c('grch37', 'grch38')",
+            "getData(rcp, outdir = 'data/folder', notes = c('grch37', 'grch38')",
             "",
             "## Get data from Google bucket directly",
             "dataUpdate('data/folder', cloud=TRUE)",
