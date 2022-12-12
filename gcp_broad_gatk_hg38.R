@@ -25,8 +25,9 @@ gcp_broad_gatk_hg38 <- addMeta(
         author = "rworkflow team",
         date = Sys.Date(),
         url = "https://console.cloud.google.com/storage/browser/gcp-public-data--broad-references/hg38/v0",
-        example = paste("rcp <- recipeLoad('gcp_broad_gatk_hg38')",
-                        "rcp$filename <- '1000G_omni2.5.hg38.vcf.gz'",
-                        "getData(rcp, outdir = 'data/folder', notes = c('gcp', 'broad', 'reference', 'hg38', 'v0', '1000G', 'omni2.5')",
-                        sep="\n"))
+        example = paste(
+            "recipeLoad('gcp_broad_gatk_hg38', return = TRUE)",
+            "gcp_broad_gatk_hg38$filename <- '1000G_omni2.5.hg38.vcf.gz'",
+            "getData(gcp_broad_gatk_hg38, outdir = 'data/folder', notes = c('gcp', 'broad', 'reference', 'hg38', 'v0', '1000G', 'omni2.5')",
+            sep="\n"))
 )

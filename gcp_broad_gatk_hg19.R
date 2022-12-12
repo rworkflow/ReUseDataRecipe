@@ -22,12 +22,13 @@ gcp_broad_gatk_hg19 <- addMeta(
                   "The 'idx' or 'tbi' index file if existing"),
     outputLabels = c("gfile"),
     outputDocs = c("The downloaded annotation files"),
-    extensions = list(author = "rworkflow team",
-                      date = Sys.Date(),
-                      url = "https://console.cloud.google.com/storage/browser/gcp-public-data--broad-references/hg19/v0",
-                      example = paste(
-                          "rcp <- recipeLoad('gcp_broad_gatk_hg19')",
-                          "rcp$filename <- '1000G_omni2.5.b37.vcf.gz'",
-                          "getData(rcp, outdir = 'data/folder', notes = c('gcp', 'broad', 'reference', 'hg19', 'v0', '1000G', 'omni2.5')",
-                          sep="\n"))
+    extensions = list(
+        author = "rworkflow team",
+        date = Sys.Date(),
+        url = "https://console.cloud.google.com/storage/browser/gcp-public-data--broad-references/hg19/v0",
+        example = paste(
+            "recipeLoad('gcp_broad_gatk_hg19', return = TRUE)",
+            "gcp_broad_gatk_hg19$filename <- '1000G_omni2.5.b37.vcf.gz'",
+            "getData(gcp_broad_gatk_hg19, outdir = 'data/folder', notes = c('gcp', 'broad', 'reference', 'hg19', 'v0', '1000G', 'omni2.5')",
+            sep="\n"))
 )

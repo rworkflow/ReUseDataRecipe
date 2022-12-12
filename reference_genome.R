@@ -65,7 +65,7 @@ reference_genome <- addMeta(
                 "http://ftp.ensembl.org/pub/release-104/fasta/mus_musculus/dna/"),
         date = Sys.Date(),
         example = paste(
-            "rcp <- recipeLoad(reference_genome)",
-            "rcp$fasta = 'http://ftp.ensembl.org/pub/release-104/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.MT.fa.gz'",
-            "getData(rcp, outdir = 'data/folder', notes = c('homo sapiens', 'grch38', 'ensembl'), conda = TRUE, docker = FALSE)", sep = "\n"))
+            "recipeLoad(reference_genome, return=TRUE)",
+            "reference_genome$fasta = 'http://ftp.ensembl.org/pub/release-104/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.MT.fa.gz'",
+            "getData(reference_genome, outdir = 'data/folder', notes = c('homo sapiens', 'grch38', 'ensembl'), conda = TRUE, docker = FALSE)", sep = "\n"))
 )
