@@ -86,6 +86,23 @@ for (i in seq_len(nrow(params))) {
             )
 }
 
+## Example 5: reference genome GRCh38, Homo sapiens, MT  (not tested/added yet!!!)
+recipeLoad("reference_genome", return=TRUE)
+params <- data.frame(
+    fasta = c("http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/GRCh38_reference_genome/GRCh38_full_analysis_set_plus_decoy_hla.fa", "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/phase2_reference_assembly_sequence/hs37d5.fa.gz"),
+    notes = c("GRCh38", "GRCh37"))
+
+for (i in seq_len(nrow(params))) {
+    reference_genome$fasta <- params$fasta[i]
+    getData(reference_genome,
+            outdir = "gcpData/reference_genome",
+            notes = c("homo sapiens", "1000 genomes", params$notes[i])  
+            )
+}
+
+## Example 6: gencode genome grch38 (no input paramater)
+## FIXME: add_meta() now calls inputs()
+recipeLoad("gencode_genome_grch38", return = TRUE)  ## addMeta calls inputs(rcp) which doesn't exist... 
 
 ###################################
 ## modify the .yml file: #output
@@ -105,29 +122,23 @@ for (i in seq_len(nrow(mt))) {
 ## in meta csv, modify the "yml" and "output" columns for gcp file path. Push to "ReUseDataRecipes/meta_gcp.csv".
 mt$yml <- gsub(file.path(getwd(), "gcpData"), "https://storage.googleapis.com/reusedata", mt$yml)
 mt$output <- gsub(file.path(getwd(), "gcpData"), "https://storage.googleapis.com/reusedata", mt$output)
-if (all(!grepl("https://storage.googleapis.com/reusedata", mt$output))) {
-    mt$output <- paste0("https://storage.googleapis.com/reusedata/", mt$output)
-}
+idx <- !grepl("https://storage.googleapis.com/reusedata", mt$output)
+mt$output[idx] <- paste0("https://storage.googleapis.com/reusedata/", mt$output[idx])
 write.csv(mt, "ReUseDataRecipes/meta_gcp.csv", row.names=FALSE, quote=FALSE)
 ## todo: push changes to origin/master!!!
 ## todo: upload data and annotation files to google bucket. 
 
 ## test
 outdir <- file.path(tempdir(), "gcpData")
-dataUpdate(outdir, cloud=TRUE)
-dh <- dataSearch(c("ensembl", "liftover", "GRCh38"))
-getCloudData(dh[1], outdir = outdir)
+dh <- dataUpdate(outdir, cloud=TRUE)
+## dh <- dataSearch(c("ensembl", "liftover", "GRCh38"))
+dh1 <- dataSearch(c("homo sapiens", "grch38", "1000 genomes"))  ## multiple data in one yml file
+dh1 <- dataSearch(c("gencode", "human", "annotation"))
+dh1 <- dataSearch(c("ensembl", "liftover", "mouse"))     
+dh1 <- dataSearch(c("gencode", "transcripts", "mouse"))  ## multiple data, in multiple yml files
+getCloudData(dh1, outdir = outdir)  ## multiple data together
 dataUpdate(outdir)  ## no cloud here. 
 dataSearch()  ## data is available locally!!!
 
 
-## Example 4: reference genome GRCh38, Homo sapiens, MT  (not tested/added yet!!!)
-recipeLoad(reference_genome, return=TRUE)
-for (i in c(1:22, "MT", "X", "Y")) {
-    reference_genome$fasta <- paste0("http://ftp.ensembl.org/pub/release-104/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.", i, ".fa.gz")
-    getData(reference_genome,
-            outdir = "gcpData/referenceGenome",
-            notes = c("homo sapiens", "grch38", "ensembl", i)  ## only MT here... 
-            )
-}
 
