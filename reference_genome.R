@@ -69,6 +69,7 @@ reference_genome <- addMeta(
             "recipeLoad(reference_genome, return=TRUE)",
             "reference_genome$fasta = 'http://ftp.ensembl.org/pub/release-104/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.MT.fa.gz'",
             "getData(reference_genome, outdir = 'data/folder', notes = c('homo sapiens', 'grch38', 'ensembl'), conda = TRUE, docker = FALSE)",
+            "",
             "## Get data from Google bucket directly",
             "dataUpdate('data/folder', cloud=TRUE)",
             "dh <- dataSearch(c('homo sapiens', 'grch38', '1000 genomes'))", 
