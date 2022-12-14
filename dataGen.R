@@ -104,6 +104,73 @@ for (i in seq_len(nrow(params))) {
 ## FIXME: add_meta() now calls inputs()
 recipeLoad("gencode_genome_grch38", return = TRUE)  ## addMeta calls inputs(rcp) which doesn't exist... 
 
+
+## mutect2
+recipeLoad("gcp_gatk_mutect2_b37.R", return = TRUE)
+params <- data.frame(filename = c("af-only-gnomad.raw.sites.vcf",
+                                  "small_exac_common_3.vcf",
+                                  "Mutect2-exome-panel.vcf",
+                                  "Mutect2-WGS-panel-b37.vcf"),
+                     idx = c("idx", "idx", "idx", "idx"))
+
+for (i in seq_len(nrow(params))) {
+    gcp_gatk_mutect2_b37$filename <- params[i, "filename"]
+    gcp_gatk_mutect2_b37$idx <- params[i, "idx"]
+    getData(gcp_gatk_mutect2_b37,
+            outdir = "gcpData/gcp_gatk_mutect2_b37",
+            notes = c("gcp", "broad", "gatk", "mutect2", "b37", gcp_gatk_mutect2_b37$filename),
+            showLog = TRUE)
+}
+
+recipeLoad("gcp_gatk_mutect2_hg38.R", return = TRUE)
+params <- data.frame(filename = c("af-only-gnomad.hg38.vcf.gz",
+                                  "small_exac_common_3.hg38.vcf.gz",
+                                  "1000g_pon.hg38.vcf.gz"),
+                     idx = c("tbi", "tbi", "tbi"))
+
+for (i in seq_len(nrow(params))) {
+    gcp_gatk_mutect2_hg38$filename <- params[i, "filename"]
+    gcp_gatk_mutect2_hg38$idx <- params[i, "idx"]
+    getData(gcp_gatk_mutect2_hg38,
+            outdir = "gcpData/gcp_gatk_mutect2_hg38",
+            notes = c("gcp", "broad", "gatk", "mutect2", "hg38", gcp_gatk_mutect2_hg38$filename),
+            showLog = TRUE)
+}
+
+## reference genome
+recipeLoad("reference_genome.R", return = TRUE)
+reference_genome$fasta <- "https://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_42/GRCh38.primary_assembly.genome.fa.gz"
+getData(reference_genome,
+        outdir = "gcpData/reference_genome",
+        notes = c("reference_genome", "GRCh38.primary_assembly", "bwa_index", "dict", "fai"),
+        showLog = TRUE, conda=TRUE)
+
+## salmon index
+recipeLoad("salmon_index.R", return = TRUE)
+salmon_index$genome <- "gcpData/reference_genome/GRCh38.primary_assembly.genome.fa"
+salmon_index$transcript <- "gcpData/gencode_transcriptome/gencode.v42.transcripts.fa"
+getData(salmon_index,
+        outdir = "gcpData/salmon_index_GRCh38",
+        notes = c("salmon_index", "GRCh38", "gencode.v42"),
+        showLog = TRUE, conda=TRUE)
+
+## bowtie2
+recipeLoad("bowtie2_index.R", return = TRUE)
+bowtie2_index$genome <- "gcpData/reference_genome/GRCh38.primary_assembly.genome.fa"
+getData(bowtie2_index,
+        outdir = "gcpData/bowtie2_index",
+        notes = c("bowtie2_index", "GRCh38.primary_assembly"),
+        showLog = TRUE, conda=TRUE)
+
+## hisat2
+recipeLoad("hisat2_index.R", return = TRUE)
+hisat2_index$genome <- "gcpData/reference_genome/GRCh38.primary_assembly.genome.fa"
+getData(hisat2_index,
+        outdir = "gcpData/hisat2_index",
+        notes = c("hisat2_index", "GRCh38.primary_assembly"),
+        showLog = TRUE, conda=TRUE)
+
+
 ###################################
 ## modify the .yml file: #output
 ###################################
@@ -114,9 +181,11 @@ mt <- meta_data("gcpData", checkData = FALSE)
 ## remove local path in "# output:" row in .yml files.
 for (i in seq_len(nrow(mt))) {
     cts <- readLines(mt$yml[i])
-    idx <- grep("# output", cts)
-    cts[idx] <- gsub(file.path(getwd(), "gcpData/"), "", cts[idx])
-    write(cts, mt$yml[i])
+    ## idx <- grep("# output", cts)
+    if(any(grepl(getwd(), cts))){
+        cts <- gsub(file.path(getwd(), "gcpData/"), "", cts)
+        write(cts, mt$yml[i])
+    }
 }
 
 ## in meta csv, modify the "yml" and "output" columns for gcp file path. Push to "ReUseDataRecipes/meta_gcp.csv".
@@ -124,7 +193,7 @@ mt$yml <- gsub(file.path(getwd(), "gcpData"), "https://storage.googleapis.com/re
 mt$output <- gsub(file.path(getwd(), "gcpData"), "https://storage.googleapis.com/reusedata", mt$output)
 idx <- !grepl("https://storage.googleapis.com/reusedata", mt$output)
 mt$output[idx] <- paste0("https://storage.googleapis.com/reusedata/", mt$output[idx])
-write.csv(mt, "ReUseDataRecipes/meta_gcp.csv", row.names=FALSE, quote=FALSE)
+write.csv(mt, "meta_gcp.csv", row.names=FALSE, quote=FALSE)
 ## todo: push changes to origin/master!!!
 ## todo: upload data and annotation files to google bucket. 
 
