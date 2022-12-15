@@ -6,7 +6,7 @@ gencode_genome_grch38 <- recipeMake(script,
                                     outputGlob = "GRCh38.primary_assembly.genome.fa.gz")
 
 gencode_genome_grch38 <- addMeta(
-    cwl  = gencode_annotation,
+    cwl = gencode_genome_grch38,
     label = "gencode genome",
     doc = "Download human genome GRCh38 from GENCODE release 42",
     outputLabels = c("genome"),

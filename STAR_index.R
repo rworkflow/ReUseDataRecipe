@@ -35,22 +35,25 @@ STAR_index <- cwlProcess(cwlVersion = "v1.2",
                          inputs = InputParamList(p1, p2, p3, p4, p5),
                          outputs = OutputParamList(o1))
 
-## ## human GRCh38 + gencode v38+ len100
-## STAR_index$ref <- "/projects/rpci/shared/references/GRCh38_full/GRCh38_full_analysis_set_plus_decoy_hla.fa"
-## STAR_index$gtf <- "/projects/rpci/shared/references/GENCODE_GRCh38/gencode.v38.annotation.gtf"
-## STAR_index$genomeDir <- "STAR.2.7.9a_GRCh38.full_GENCODE.v38_100"
-## STAR_index$threads <- 8
-## STAR_index$sjdb <- 100
-## notes <- paste("GRCh38_full_analysis_set_plus_decoy_hla", "GENCODE.v38", "STAR_2.7.9a", "length_101")
-## BPPARAM <- BatchtoolsParam(workers = 1,
-##                            cluster = "slurm",
-##                            template = "~/slurm_rpci.tmpl",
-##                            resources = list(ncpus = 8,
-##                                             jobname = "index",                         
-##                                             walltime = 60*60*4,
-##                                             memory = 16000),
-##                            log = TRUE, logdir = ".", progressbar = TRUE)
-## res <- runCWLDataBatch(STAR_index, outdir = "/projects/rpci/shared/references/STAR/",
-##                        prefix = "STAR.2.7.9a_GRCh38.full_GENCODE.v38_100",
-##                        showLog = TRUE, notes = notes, docker = "singularity",
-##                        BPPARAM = BPPARAM)
+STAR_index <- addMeta(
+    STAR_index,
+    label = "STAR_index",
+    doc = "ultrafast universal RNA-seq and scRNAseq aligner",
+    inputLabels = c("reference genome", "GTF", "genomeDir", "threads", "sjdbOverhang"),
+    inputDocs = c("The reference genome file", "gene annotation file", "The directory for index files.", "The number of threads to use", "The length of the genomic sequence around the annotated junction"),
+    outputLabels = c("STAR index"),
+    outputDocs = c("The directory for STAR index files"),
+    extensions = list(
+        author = "rworkflow team",
+        date = Sys.Date(),
+        url = "https://github.com/alexdobin/STAR",
+        example = paste(
+            "recipeLoad('STAR_index.R', return = TRUE)",
+            "STAR_index$ref <- 'gcpData/reference_genome/GRCh38.primary_assembly.genome.fa'",
+            "STAR_index$gtf <- 'gcpData/gencode_annotation/gencode.v42.annotation.gtf'",
+            "STAR_index$sjdb <- 100",
+            "STAR_index$genomeDir <- 'GRCh38.GENCODE.v42_100'",
+            "STAR_index$threads <- 16",
+            "getData(STAR_index, outdir = 'gcpData', notes =c('STAR_index', 'GRCh38.primary_assembly', 'gencode.v42', 'star_2.7.9a')",
+            sep="\n"))
+)

@@ -145,6 +145,28 @@ getData(reference_genome,
         notes = c("reference_genome", "GRCh38.primary_assembly", "bwa_index", "dict", "fai"),
         showLog = TRUE, conda=TRUE)
 
+## STAR
+recipeLoad("STAR_index.R", return = TRUE)
+STAR_index$ref <- "gcpData/reference_genome/GRCh38.primary_assembly.genome.fa"
+STAR_index$gtf <- "gcpData/gencode_annotation/gencode.v42.annotation.gtf"
+STAR_index$sjdb <- 100
+STAR_index$genomeDir <- "GRCh38.GENCODE.v42_100"
+STAR_index$threads <- 16
+
+bp <- BatchtoolsParam(workers = 1,
+                      cluster = "slurm",
+                      template = "~/slurm_rpci.tmpl",
+                      resources = list(ncpus = 16,
+                                       jobname = "star_index",                         
+                                       walltime = 60*60*24,
+                                       memory = 64000),
+                      log = TRUE, logdir = ".", progressbar = TRUE)
+
+getData(STAR_index,
+        outdir = "gcpData/STAR_index",
+        notes = c("STAR_index", "GRCh38.primary_assembly", "gencode.v42", "star_2.7.9a"),
+        showLog = TRUE, docker = "singularity", BPPARAM = bp)
+
 ## salmon index
 recipeLoad("salmon_index.R", return = TRUE)
 salmon_index$genome <- "gcpData/reference_genome/GRCh38.primary_assembly.genome.fa"
@@ -179,12 +201,12 @@ getData(hisat2_index,
 mt <- meta_data("gcpData", checkData = FALSE)
 
 ## remove local path in "# output:" row in .yml files.
-for (i in seq_len(nrow(mt))) {
-    cts <- readLines(mt$yml[i])
-    ## idx <- grep("# output", cts)
+ymls <- unique(mt$yml)
+for (i in seq(ymls)) {
+    cts <- readLines(ymls[i])
     if(any(grepl(getwd(), cts))){
         cts <- gsub(file.path(getwd(), "gcpData/"), "", cts)
-        write(cts, mt$yml[i])
+        write(cts, ymls[i])
     }
 }
 
