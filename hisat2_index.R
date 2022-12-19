@@ -24,8 +24,9 @@ hisat2_index <- addMeta(
         author = "rworkflow team",
         date = Sys.Date(),
         url = "http://daehwankimlab.github.io/hisat2/",
-        example = paste("recipeLoad('hisat2_index.R', return = TRUE)",
-                        "hisat2_index$genome <- 'GRCh38.primary_assembly.genome.fa'",
-                        "getData(hisat2_index, outdir = 'data/folder', notes = c('hisat2_index', 'GRCh38.primary_assembly')",
-                        sep="\n"))
+        example = paste(
+            "recipeLoad('hisat2_index.R', return = TRUE)",
+            "hisat2_index$genome <- 'GRCh38.primary_assembly.genome.fa'",
+            "getData(hisat2_index, outdir = 'data/folder', notes = c('hisat2_index', 'GRCh38.primary_assembly')",
+            sep="\n"))
 )

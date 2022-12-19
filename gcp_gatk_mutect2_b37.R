@@ -13,10 +13,6 @@ gcp_gatk_mutect2_b37 <- recipeMake(shscript = script,
                                   outputID = "gfile",
                                   outputGlob = "$(inputs.filename)*")
 
-gcp_gatk_mutect2_b37 <- addMeta(gcp_gatk_mutect2_b37,
-                               label = "gcp_gatk_mutect2_b37",
-                               doc = "")
-
 gcp_gatk_mutect2_b37 <- addMeta(
     gcp_gatk_mutect2_b37,
     label = "gcp_gatk_mutect2_b37",
@@ -26,12 +22,14 @@ gcp_gatk_mutect2_b37 <- addMeta(
                   "The 'idx' or 'tbi' index file if existing"),
     outputLabels = c("gfile"),
     outputDocs = c("The downloaded annotation files"),
-    extensions = list(author = "rworkflow team",
-                      date = Sys.Date(),
-                      url = "https://console.cloud.google.com/storage/browser/gatk-best-practices/somatic-b37",
-                      example = paste("rcp <- recipeLoad('gcp_gatk_mutect2_b37')",
-                                      "rcp$filename <- 'small_exac_common_3.vcf'",
-                                      "rcp$idx <- 'idx'",
-                                      "getData(rcp, outdir = 'data/folder', notes = c('gcp', 'broad', 'mutect2', 'small_exac_common')",
-                                      sep="\n"))
+    extensions = list(
+        author = "rworkflow team",
+        date = Sys.Date(),
+        url = "https://console.cloud.google.com/storage/browser/gatk-best-practices/somatic-b37",
+        example = paste(
+            "recipeLoad('gcp_gatk_mutect2_b37', return = TRUE)",
+            "gcp_gatk_mutect2_b37$filename <- 'small_exac_common_3.vcf'",
+            "gcp_gatk_mutect2_b37$idx <- 'idx'",
+            "getData(gcp_gatk_mutect2_b37, outdir = 'data/folder', notes = c('gcp', 'broad', 'mutect2', 'small_exac_common')",
+            sep="\n"))
 )

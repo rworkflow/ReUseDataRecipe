@@ -30,9 +30,10 @@ salmon_index <- addMeta(
         author = "rworkflow team",
         date = Sys.Date(),
         url = "https://salmon.readthedocs.io/en/latest/salmon.html",
-        example = paste("recipeLoad('salmon_index.R', return = TRUE)",
-                        "salmon_index$genome <- 'GRCh38.primary_assembly.genome.fa'",
-                        "salmon_index$transcript <- 'gencode.v42.transcripts.fa'",
-                        "getData(salmon_index, outdir = 'data/folder', notes = c('salmon_index', 'GRCh38.primary_assembly', 'gencode.v42')",
-                        sep="\n"))
+        example = paste(
+            "recipeLoad('salmon_index.R', return = TRUE)",
+            "salmon_index$genome <- 'GRCh38.primary_assembly.genome.fa'",
+            "salmon_index$transcript <- 'gencode.v42.transcripts.fa'",
+            "getData(salmon_index, outdir = 'data/folder', notes = c('salmon_index', 'GRCh38.primary_assembly', 'gencode.v42')",
+            sep="\n"))
 )
