@@ -20,7 +20,7 @@ salmon_index <- recipeMake(shscript = script,
 salmon_index <- addMeta(
     salmon_index,
     label = "salmon_index",
-    doc = "Salmon is a tool for wicked-fast transcript quantification from RNA-seq data. The recipe is to build a salmon index for your transcriptome. The script is prepared according to this instruction: https://combine-lab.github.io/alevin-tutorial/2019/selective-alignment/.",
+    doc = "Salmon is a tool for wicked-fast transcript quantification from RNA-seq data. The recipe is to build a salmon index for your transcriptome. The script is prepared according to this instruction (https://combine-lab.github.io/alevin-tutorial/2019/selective-alignment/.)",
     inputLabels = c("reference genome", "transcripts"),
     inputDocs = c("The fasta file for reference genome",
                   "The fasta file for transcripts from gencode"),
