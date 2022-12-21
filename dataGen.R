@@ -192,6 +192,22 @@ getData(hisat2_index,
         notes = c("hisat2_index", "GRCh38.primary_assembly"),
         showLog = TRUE, conda=TRUE)
 
+## UCSC database
+recipeLoad("ucsc_database.R", return = TRUE)
+
+params <- data.frame(build = c("hg38", "hg38", "mm39", "mm39"),
+                     dbname = c("refGene", "knownGene", "refGene", "knownGene"))
+
+for (i in seq_len(nrow(params))) {
+    ucsc_database$build <- params[i, "build"]
+    ucsc_database$dbname <- params[i, "dbname"]
+    getData(ucsc_database,
+            outdir = "gcpData/ucsc_database",
+            notes = c("ucsc", "annotation", "database",
+                      ucsc_database$build, ucsc_database$dbname),
+            showLog = TRUE)
+}
+
 
 ###################################
 ## modify the .yml file: #output
