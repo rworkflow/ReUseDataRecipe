@@ -1,4 +1,4 @@
-## genome_liftover
+## ensembl_liftover
 
 script <- "
 species=$1
@@ -14,14 +14,14 @@ fi
 wget https://ftp.ensembl.org/pub/assembly_mapping/$species/${from}_to_${to}.chain.gz
 gzip -d ${from}_to_${to}.chain.gz"
 
-genome_liftover <- recipeMake(shscript = script,
+ensembl_liftover <- recipeMake(shscript = script,
                   paramID = c("species", "from", "to"), 
                   paramType = c("string", "string", "string"), 
                   outputID = "liftover", 
                   outputGlob = "*.chain") 
 
-genome_liftover <- addMeta(
-    cwl = genome_liftover,
+ensembl_liftover <- addMeta(
+    cwl = ensembl_liftover,
     label = "genome liftover",
     doc = "Download and unzip genome liftover file from Ensembl",
     inputLabels = c("species", "from", "to"),
@@ -37,11 +37,11 @@ genome_liftover <- addMeta(
         date = Sys.Date(),
         example = paste(
             "## Get data from evaluting recipe",
-            "recipeLoad('genome_liftover', return = TRUE)",
-            "genome_liftover$species <- 'human'",
-            "genome_liftover$from <- 'GRCh37'",
-            "genome_liftover$to <- 'GRCh38'",
-            "getData(genome_liftover, outdir = 'data/folder', notes = c('grch37', 'grch38')",
+            "recipeLoad('ensembl_liftover', return = TRUE)",
+            "ensembl_liftover$species <- 'human'",
+            "ensembl_liftover$from <- 'GRCh37'",
+            "ensembl_liftover$to <- 'GRCh38'",
+            "getData(ensembl_liftover, outdir = 'data/folder', notes = c('grch37', 'grch38')",
             "",
             "## Get data from Google bucket directly",
             "dataUpdate('data/folder', cloud=TRUE)",
