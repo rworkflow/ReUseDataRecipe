@@ -52,7 +52,7 @@ reference_genome <- cwlProcess(cwlVersion = "v1.2",
 
 reference_genome <- addMeta(
     reference_genome,
-    label = "reference genome",
+    label = "reference_genome",
     doc = "Download (if not previously exist as a local file), rename (as *.fa), and index the reference genome with samtools and bwa",
     inputLabels = c("reference genome"),
     inputDocs = c("Can be a file path (if locally available) or a url as indicated in 'Data source'"),

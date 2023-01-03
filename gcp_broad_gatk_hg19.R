@@ -15,7 +15,7 @@ gcp_broad_gatk_hg19 <- recipeMake(shscript = script,
 
 gcp_broad_gatk_hg19 <- addMeta(
     gcp_broad_gatk_hg19,
-    label = "GCP_broad_gatk_hg19",
+    label = "gcp_broad_gatk_hg19",
     doc = "GATK annotation bundle for hg19 from GCP (gs://gcp-public-data--broad-references/hg19/v0/)",
     inputLabels = c("file name", "index"),
     inputDocs = c("The file basename to download from the broad GCP bucket",

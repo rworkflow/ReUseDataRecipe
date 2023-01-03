@@ -7,7 +7,7 @@ gencode_genome_grch38 <- recipeMake(script,
 
 gencode_genome_grch38 <- addMeta(
     cwl = gencode_genome_grch38,
-    label = "gencode genome",
+    label = "gencode_genome_grch38",
     doc = "Download human genome GRCh38 from GENCODE release 42",
     outputLabels = c("genome"),
     outputDocs = c("The `GRCh38.primary_assembly.genome.fa.gz` fasta file"),

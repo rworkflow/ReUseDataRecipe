@@ -14,7 +14,7 @@ gcp_broad_gatk_hg38 <- recipeMake(shscript = script,
 
 gcp_broad_gatk_hg38 <- addMeta(
     gcp_broad_gatk_hg38,
-    label = "GCP_broad_gatk_hg38",
+    label = "gcp_broad_gatk_hg38",
     doc = "GATK annotation bundle for hg38 from GCP (gs://gcp-public-data--broad-references/hg38/v0/)",
     inputLabels = c("file name", "index"),
     inputDocs = c("The file basename to download from the broad GCP bucket",

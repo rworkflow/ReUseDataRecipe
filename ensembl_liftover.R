@@ -22,7 +22,7 @@ ensembl_liftover <- recipeMake(shscript = script,
 
 ensembl_liftover <- addMeta(
     cwl = ensembl_liftover,
-    label = "ensembl liftover",
+    label = "ensembl_liftover",
     doc = "Download and unzip genome liftover file from Ensembl",
     inputLabels = c("species", "from", "to"),
     inputDocs = c(paste0("'human' or 'mouse', which maps to the ",

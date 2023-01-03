@@ -15,7 +15,7 @@ ucsc_database <- recipeMake(shscript = script,
 
 ucsc_database <- addMeta(
     cwl = ucsc_database,
-    label = "UCSC database",
+    label = "ucsc_database",
     doc = "UCSC genome annotation database from UCSC golden path",
     inputLabels = c("build", "dbname"),
     inputDocs = c("genome build version, e.g. 'hg19', 'hg38', 'mm39'",

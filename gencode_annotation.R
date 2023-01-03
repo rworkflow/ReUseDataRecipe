@@ -16,7 +16,7 @@ gencode_annotation <- recipeMake(shscript = script,
 
 gencode_annotation <- addMeta(
     cwl = gencode_annotation,
-    label = "gencode annotation",
+    label = "gencode_annotation",
     doc = "Download and unzip annotation files from gencode",
     inputLabels = c("species", "version"),
     inputDocs = c("'human' or 'mouse'",

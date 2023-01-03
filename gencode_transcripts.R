@@ -22,7 +22,7 @@ gencode_transcripts <- recipeMake(script,
 
 gencode_transcripts <- addMeta(
     cwl = gencode_transcripts,
-    label = "gencode transcripts",
+    label = "gencode_transcripts",
     doc = "Download, unzip, and index transcripts files from gencode",
     inputLabels = c("species", "version"),
     inputDocs = c("'human' or 'mouse'",
