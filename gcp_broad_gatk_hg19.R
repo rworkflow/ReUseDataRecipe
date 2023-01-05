@@ -29,6 +29,6 @@ gcp_broad_gatk_hg19 <- addMeta(
         example = paste(
             "recipeLoad('gcp_broad_gatk_hg19', return = TRUE)",
             "gcp_broad_gatk_hg19$filename <- '1000G_omni2.5.b37.vcf.gz'",
-            "getData(gcp_broad_gatk_hg19, outdir = 'data/folder', notes = c('gcp', 'broad', 'reference', 'hg19', 'v0', '1000G', 'omni2.5')",
+            "getData(gcp_broad_gatk_hg19, outdir = 'data/folder', notes = c('gcp', 'broad', 'reference', 'hg19', 'v0', '1000G', 'omni2.5'))",
             sep="\n"))
 )

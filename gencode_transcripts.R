@@ -40,7 +40,7 @@ gencode_transcripts <- addMeta(
             "recipeLoad('gencode_transcripts', return = TRUE)",
             "gencode_transcripts$species <- 'mouse'",
             "gencode_transcripts$version <- 'M31'",
-            "getData(gencode_transcripts, outdir = 'data/folder', notes = c('gencode', 'transcripts', 'mouse', 'M31')",
+            "getData(gencode_transcripts, outdir = 'data/folder', notes = c('gencode', 'transcripts', 'mouse', 'M31'))",
             "",
             "## Get data from Google bucket directly",
             "dataUpdate('data/folder', cloud=TRUE)",

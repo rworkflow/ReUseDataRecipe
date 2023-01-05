@@ -31,6 +31,6 @@ ucsc_database <- addMeta(
             "recipeLoad('ucsc_database', return = TRUE)",
             "ucsc_database$build <- 'hg38'",
             "ucsc_database$dbname <- 'refGene'",
-            "getData(ucsc_database, outdir = 'data/folder', notes = c('ucsc', 'annotation', 'database', 'hg38', 'refGene')",
+            "getData(ucsc_database, outdir = 'data/folder', notes = c('ucsc', 'annotation', 'database', 'hg38', 'refGene'))",
             sep="\n"))
 )

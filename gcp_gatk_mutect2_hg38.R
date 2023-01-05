@@ -29,6 +29,6 @@ gcp_gatk_mutect2_hg38 <- addMeta(
             "recipeLoad('gcp_gatk_mutect2_hg38', return = TRUE)",
             "gcp_gatk_mutect2_hg38$filename <- 'small_exac_common_3.hg38.vcf.gz'",
             "gcp_gatk_mutect2_hg38$idx <- 'tbi'",
-            "getData(gcp_gatk_mutect2_hg38, outdir = 'data/folder', notes = c('gcp', 'broad', 'mutect2', 'small_exac_common')",
+            "getData(gcp_gatk_mutect2_hg38, outdir = 'data/folder', notes = c('gcp', 'broad', 'mutect2', 'small_exac_common'))",
             sep="\n"))
 )

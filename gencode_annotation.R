@@ -34,7 +34,7 @@ gencode_annotation <- addMeta(
             "recipeLoad('gencode_annotation', return = TRUE)",
             "gencode_annotation$species <- 'human'",
             "gencode_annotation$version <- '42'",
-            "getData(gencode_annotation, outdir = 'data/folder', notes = c('gencode', 'annotation', 'human', '42')",
+            "getData(gencode_annotation, outdir = 'data/folder', notes = c('gencode', 'annotation', 'human', '42'))",
             "",
             "## Get data from Google bucket directly",
             "dataUpdate('data/folder', cloud=TRUE)",

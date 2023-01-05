@@ -30,6 +30,6 @@ gcp_gatk_mutect2_b37 <- addMeta(
             "recipeLoad('gcp_gatk_mutect2_b37', return = TRUE)",
             "gcp_gatk_mutect2_b37$filename <- 'small_exac_common_3.vcf'",
             "gcp_gatk_mutect2_b37$idx <- 'idx'",
-            "getData(gcp_gatk_mutect2_b37, outdir = 'data/folder', notes = c('gcp', 'broad', 'mutect2', 'small_exac_common')",
+            "getData(gcp_gatk_mutect2_b37, outdir = 'data/folder', notes = c('gcp', 'broad', 'mutect2', 'small_exac_common'))",
             sep="\n"))
 )

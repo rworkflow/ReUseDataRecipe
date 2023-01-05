@@ -18,7 +18,8 @@ ensembl_liftover <- recipeMake(shscript = script,
                   paramID = c("species", "from", "to"), 
                   paramType = c("string", "string", "string"), 
                   outputID = "liftover", 
-                  outputGlob = "*.chain") 
+                  outputGlob = "*.chain",
+                  requireTools = c("wget", "gzip")) 
 
 ensembl_liftover <- addMeta(
     cwl = ensembl_liftover,
@@ -41,7 +42,7 @@ ensembl_liftover <- addMeta(
             "ensembl_liftover$species <- 'human'",
             "ensembl_liftover$from <- 'GRCh37'",
             "ensembl_liftover$to <- 'GRCh38'",
-            "getData(ensembl_liftover, outdir = 'data/folder', notes = c('grch37', 'grch38')",
+            "getData(ensembl_liftover, outdir = 'data/folder', notes = c('grch37', 'grch38'))",
             "",
             "## Get data from Google bucket directly",
             "dataUpdate('data/folder', cloud=TRUE)",
