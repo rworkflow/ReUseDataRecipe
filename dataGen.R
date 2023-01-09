@@ -3,7 +3,15 @@ library(Rcwl)
 library(httr)
 library(XML)
 
-## Example 1: Download and unzip genome liftover file from Ensembl
+## echo and print to file
+recipeLoad('echo_out', return = T)
+echo_out$input <- "Hello World!"
+echo_out$outfile <- "outfile"
+getData(echo_out,
+        outdir = 'gcpData/echo',
+        notes = c("echo", "hello", "world", "txt"))
+
+## Download and unzip genome liftover file from Ensembl
 recipeLoad('ensembl_liftover', return=T)  ## Encourage to use a meaningful name!!! or use recipeLoad(return=TRUE)
 h1 <- GET("https://ftp.ensembl.org/pub/assembly_mapping/homo_sapiens/")
 fls <- readHTMLTable(content(h1, as="text"))[[1]]$Name
@@ -30,7 +38,7 @@ for (i in seq_len(nrow(params))) {
             )
 }
 
-## Example 2: Download, unzip, and index transcripts files from gencode.
+## Download, unzip, and index transcripts files from gencode.
 recipeLoad('gencode_transcripts', return=T)
 params <- data.frame(species = rep(c("human", "mouse"), each=2), version = c(42, 41, "M31", "M30"))
 for (i in seq_len(nrow(params))) {
@@ -42,7 +50,7 @@ for (i in seq_len(nrow(params))) {
             )
 }
     
-## Example 3: Download and unzip annotation files from gencode
+## Download and unzip annotation files from gencode
 recipeLoad('gencode_annotation', return=TRUE)
 params <- data.frame(species = rep(c("human", "mouse"), each=2), version = c(42, 41, "M31", "M30"))
 for (i in seq_len(nrow(params))) {
@@ -54,7 +62,7 @@ for (i in seq_len(nrow(params))) {
             )
 }
 
-## Example 4: Download GATK GCP files. 
+## Download GATK GCP files. 
 
 ## hg38
 recipeLoad("gcp_broad_gatk_hg38", return = TRUE)
@@ -86,7 +94,7 @@ for (i in seq_len(nrow(params))) {
             )
 }
 
-## Example 5: reference genome GRCh38, Homo sapiens, MT  (not tested/added yet!!!)
+## reference genome GRCh38, Homo sapiens, MT  (not tested/added yet!!!)
 recipeLoad("reference_genome", return=TRUE)
 params <- data.frame(
     fasta = c("http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/GRCh38_reference_genome/GRCh38_full_analysis_set_plus_decoy_hla.fa", "http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/phase2_reference_assembly_sequence/hs37d5.fa.gz"),
@@ -100,7 +108,7 @@ for (i in seq_len(nrow(params))) {
             )
 }
 
-## Example 6: gencode genome grch38 (no input paramater)
+## gencode genome grch38 (no input paramater)
 ## FIXME: add_meta() now calls inputs()
 recipeLoad("gencode_genome_grch38", return = TRUE)  ## addMeta calls inputs(rcp) which doesn't exist... 
 
@@ -235,7 +243,10 @@ write.csv(mt, "meta_gcp.csv", row.names=FALSE, quote=FALSE)
 ## todo: push changes to origin/master!!!
 ## todo: upload data and annotation files to google bucket. 
 
+############
 ## test
+############
+
 outdir <- file.path(tempdir(), "gcpData")
 dh <- dataUpdate(outdir, cloud=TRUE)
 ## dh <- dataSearch(c("ensembl", "liftover", "GRCh38"))
@@ -243,6 +254,7 @@ dh1 <- dataSearch(c("homo sapiens", "grch38", "1000 genomes"))  ## multiple data
 dh1 <- dataSearch(c("gencode", "human", "annotation"))
 dh1 <- dataSearch(c("ensembl", "liftover", "mouse"))     
 dh1 <- dataSearch(c("gencode", "transcripts", "mouse"))  ## multiple data, in multiple yml files
+dh1 <- dataSearch(c("echo", "hello", "world"))
 getCloudData(dh1, outdir = outdir)  ## multiple data together
 dataUpdate(outdir)  ## no cloud here. 
 dataSearch()  ## data is available locally!!!
